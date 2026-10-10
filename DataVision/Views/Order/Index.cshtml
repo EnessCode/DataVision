@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Order>
+
+@{
+    ViewData["Title"] = "Sipariş Listesi";
+}
+
+<div class="block-header"></div>
+
+<div class="container-fluid mt-2">
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card shadow-sm border-0 rounded-lg">
+                <div class="header d-flex justify-content-between align-items-center bg-light border-bottom p-4">
+                    <div>
+                        <h5 class="m-0 text-dark font-weight-bold">Sipariş Yönetimi</h5>
+                        <small class="text-muted">Sistemdeki tüm müşteri siparişleri ve durumları.</small>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="badge badge-info px-3 py-2 font-12 mr-3">Toplam: @(Model?.Count() ?? 0) Sipariş</span>
+                        <a href="/Order/Create" class="btn btn-primary btn-sm btn-round shadow-sm m-0">
+                            <i class="zmdi zmdi-plus mr-1"></i> Yeni Sipariş Oluştur
+                        </a>
+                    </div>
+                </div>
+                <div class="body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-custom mb-0 align-middle">
+                            <thead class="bg-dark text-white">
+                                <tr>
+                                    <th class="border-0 py-3 text-center" style="width: 80px;"># S.NO</th>
+                                    <th class="border-0 py-3">MÜŞTERİ</th>
+                                    <th class="border-0 py-3">ÜRÜN & MİKTAR</th>
+                                    <th class="border-0 py-3">ÖDEME & TARİH</th>
+                                    <th class="border-0 py-3 text-center">DURUM</th>
+                                    <th class="border-0 py-3 text-right" style="padding-right: 2rem;">İŞLEMLER</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="text-muted font-weight-bold text-center">@item.OrderId</td>
+                                            <td class="font-weight-bold text-dark">
+                                                <i class="zmdi zmdi-account mr-2 text-primary"></i>
+                                                @(item.Customer != null ? item.Customer.CustomerName + " " + item.Customer.CustomerSurname : "Bilinmiyor")
+                                            </td>
+                                            <td>
+                                                <div class="text-dark font-weight-bold">@(item.Product != null ? item.Product.ProductName : "Silinmiş Ürün")</div>
+                                                <div class="text-muted font-12"><i class="zmdi zmdi-shopping-cart mr-1"></i> Miktar: @item.Quantity Adet</div>
+                                            </td>
+                                            <td>
+                                                <div class="text-dark">@item.PaymentMethod</div>
+                                                <div class="text-muted font-12">@(item.OrderDate.HasValue? item.OrderDate.Value.ToString("dd.MM.yyyy HH:mm") : "-")</div>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge @(item.OrderStatus == "Tamamlandı" || item.OrderStatus == "Teslim Edildi" ? "badge-success" : "badge-warning")">
+                                                    @item.OrderStatus
+                                                </span>
+                                            </td>
+                                            <td class="text-right" style="padding-right: 2rem;">
+                                                <a href="/Order/Edit/@item.OrderId" class="btn btn-sm btn-outline-warning btn-icon btn-icon-mini btn-round mr-2" title="Düzenle">
+                                                    <i class="zmdi zmdi-edit"></i>
+                                                </a>
+                                                <a href="/Order/Delete/@item.OrderId" class="btn btn-sm btn-outline-danger btn-icon btn-icon-mini btn-round" title="Sil">
+                                                    <i class="zmdi zmdi-delete"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center py-5 text-muted">
+                                            <i class="zmdi zmdi-assignment" style="font-size: 2.5rem;"></i>
+                                            <p class="mt-3 mb-0 font-16">Veritabanında henüz hiç sipariş bulunmuyor.</p>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    @if (ViewBag.TotalPages > 1)
+                    {
+                        int current = ViewBag.CurrentPage;
+                        int total = ViewBag.TotalPages;
+
+                        <div class="card-footer bg-light border-top p-3 d-flex justify-content-center">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination mb-0">
+                                    <li class="page-item @(current == 1 ? "disabled" : "")">
+                                        <a class="page-link" href="/Order/Index?page=@(current - 1)">Önceki</a>
+                                    </li>
+                                    <li class="page-item @(current == 1 ? "active" : "")">
+                                        <a class="page-link" href="/Order/Index?page=1">1</a>
+                                    </li>
+                                    @if (current > 3)
+                                    {
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    }
+                                    @{
+                                        int start = Math.Max(2, current - 1);
+                                        int end = Math.Min(total - 1, current + 1);
+                                        if (current == 1) { end = Math.Min(total - 1, 3); }
+                                        if (current == 2) { end = Math.Min(total - 1, 4); }
+                                        if (current == total) { start = Math.Max(2, total - 2); }
+                                        if (current == total - 1) { start = Math.Max(2, total - 3); }
+                                        for (int i = start; i <= end; i++)
+                                        {
+                                            <li class="page-item @(current == i ? "active" : "")">
+                                                <a class="page-link" href="/Order/Index?page=@i">@i</a>
+                                            </li>
+                                        }
+                                    }
+                                    @if (current < total - 2)
+                                    {
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    }
+                                    @if (total > 1)
+                                    {
+                                        <li class="page-item @(current == total ? "active" : "")">
+                                            <a class="page-link" href="/Order/Index?page=@total">@total</a>
+                                        </li>
+                                    }
+                                    <li class="page-item @(current == total ? "disabled" : "")">
+                                        <a class="page-link" href="/Order/Index?page=@(current + 1)">Sonraki</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

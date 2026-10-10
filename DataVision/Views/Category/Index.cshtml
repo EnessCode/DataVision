@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Category>
+
+@{
+	ViewData["Title"] = "Kategori Listesi";
+}
+
+<div class="block-header"></div>
+
+<div class="container-fluid mt-2">
+	<div class="row clearfix">
+		<div class="col-lg-12">
+			<div class="card shadow-sm border-0 rounded-lg">
+				<div class="header d-flex justify-content-between align-items-center bg-light border-bottom p-4">
+					<div>
+						<h5 class="m-0 text-dark font-weight-bold">Kategori Listesi</h5>
+						<small class="text-muted">Sistemde kayıtlı olan tüm veri kategorileri.</small>
+					</div>
+					<div class="d-flex align-items-center">
+						<span class="badge badge-info px-3 py-2 font-12 mr-3">Toplam: @(Model?.Count() ?? 0) Kayıt</span>
+						<a href="/Category/Create" class="btn btn-primary btn-sm btn-round shadow-sm m-0">
+							<i class="zmdi zmdi-plus mr-1"></i> Yeni Ekle
+						</a>
+					</div>
+				</div>
+				<div class="body p-0">
+					<div class="table-responsive">
+						<table class="table table-hover table-custom mb-0 align-middle">
+							<thead class="bg-dark text-white">
+								<tr>
+									<th class="border-0 py-3" style="width: 100px; text-align: center;">#</th>
+									<th class="border-0 py-3">KATEGORİ ADI</th>
+									<th class="border-0 py-3 text-right" style="padding-right: 2rem;">İŞLEMLER</th>
+								</tr>
+							</thead>
+							<tbody>
+								@if (Model != null && Model.Any())
+								{
+									foreach (var category in Model)
+									{
+										<tr>
+											<td class="text-muted font-weight-bold text-center">@category.CategoryId</td>
+											<td class="font-weight-bold text-dark">
+												<div class="d-flex align-items-center">
+													<div class="icon-circle bg-light text-primary mr-3" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+														<i class="zmdi zmdi-folder"></i>
+													</div>
+													@category.CategoryName
+												</div>
+											</td>
+											<td class="text-right" style="padding-right: 2rem;">
+												<a href="/Category/Edit/@category.CategoryId" button class="btn btn-sm btn-outline-warning btn-icon btn-icon-mini btn-round mr-2" title="Düzenle">
+													<i class="zmdi zmdi-edit"></i>
+												</a>
+												<a href="/Category/Delete/@category.CategoryId" button class="btn btn-sm btn-outline-danger btn-icon btn-icon-mini btn-round" title="Sil">
+													<i class="zmdi zmdi-delete"></i>
+												</a>
+											</td>
+										</tr>
+									}
+								}
+								else
+								{
+									<tr>
+										<td colspan="3" class="text-center py-5 text-muted">
+											<i class="zmdi zmdi-info-outline" style="font-size: 2.5rem;"></i>
+											<p class="mt-3 mb-0 font-16">Veritabanında henüz hiç kategori bulunmuyor.</p>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

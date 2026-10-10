@@ -1,0 +1,121 @@
+﻿@model Customer
+
+@{
+    ViewData["Title"] = "Yeni Müşteri Ekle";
+}
+
+<div class="block-header"></div>
+
+<div class="container-fluid mt-2">
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card shadow-sm border-0 rounded-lg">
+                <div class="header d-flex align-items-center bg-light border-bottom p-4">
+                    <div class="icon-circle bg-primary text-white mr-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; border-radius: 50%;">
+                        <i class="zmdi zmdi-account-add" style="font-size: 1.8rem;"></i>
+                    </div>
+                    <div>
+                        <h5 class="m-0 text-dark font-weight-bold">Yeni Müşteri Tanımla</h5>
+                        <small class="text-muted">Sisteme yeni bir müşteri profili ekliyorsunuz.</small>
+                    </div>
+                </div>
+
+                <div class="body p-4">
+                    <form asp-action="Create" method="post">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="CustomerName" class="font-weight-bold text-dark">Adı</label>
+                                            <div class="form-line">
+                                                <input asp-for="CustomerName" class="form-control" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="CustomerSurname" class="font-weight-bold text-dark">Soyadı</label>
+                                            <div class="form-line">
+                                                <input asp-for="CustomerSurname" class="form-control" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="CustomerEmail" class="font-weight-bold text-dark">E-Posta Adresi</label>
+                                    <div class="form-line">
+                                        <input asp-for="CustomerEmail" type="email" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="CustomerPhone" class="font-weight-bold text-dark">Telefon Numarası</label>
+                                    <div class="form-line">
+                                        <input asp-for="CustomerPhone" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="CustomerImageUrl" class="font-weight-bold text-dark">Profil Fotoğrafı URL</label>
+                                    <div class="form-line">
+                                        <input asp-for="CustomerImageUrl" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="CustomerCountry" class="font-weight-bold text-dark">Ülke</label>
+                                            <div class="form-line">
+                                                <input asp-for="CustomerCountry" class="form-control" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="CustomerCity" class="font-weight-bold text-dark">Şehir</label>
+                                            <div class="form-line">
+                                                <input asp-for="CustomerCity" class="form-control" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="CustomerDistrict" class="font-weight-bold text-dark">İlçe</label>
+                                    <div class="form-line">
+                                        <input asp-for="CustomerDistrict" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="CustomerAddress" class="font-weight-bold text-dark">Açık Adres</label>
+                                    <div class="form-line">
+                                        <textarea asp-for="CustomerAddress" class="form-control" rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4 border-top pt-4">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-round shadow-sm mr-2">
+                                    <i class="zmdi zmdi-floppy mr-1"></i> Kaydet
+                                </button>
+                                <a href="/Customer/Index" class="btn btn-outline-secondary btn-round">
+                                    <i class="zmdi zmdi-close mr-1"></i> İptal
+                                </a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

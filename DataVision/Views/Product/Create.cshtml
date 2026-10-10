@@ -1,0 +1,104 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Yeni Ürün Ekle";
+}
+
+<div class="block-header"></div>
+
+<div class="container-fluid mt-2">
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card shadow-sm border-0 rounded-lg">
+                <div class="header d-flex align-items-center bg-light border-bottom p-4">
+                    <div class="icon-circle bg-primary text-white mr-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; border-radius: 50%;">
+                        <i class="zmdi zmdi-plus" style="font-size: 1.8rem;"></i>
+                    </div>
+                    <div>
+                        <h5 class="m-0 text-dark font-weight-bold">Yeni Ürün Tanımla</h5>
+                        <small class="text-muted">Kataloğa yeni bir ürün ekliyorsunuz.</small>
+                    </div>
+                </div>
+
+                <div class="body p-4">
+                    <form asp-action="Create" method="post">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="ProductName" class="font-weight-bold text-dark">Ürün Adı</label>
+                                    <div class="form-line">
+                                        <input asp-for="ProductName" class="form-control" required autocomplete="off" />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="UnitPrice" class="font-weight-bold text-dark">Birim Fiyatı</label>
+                                            <div class="form-line">
+                                                <input asp-for="UnitPrice" type="number" step="0.01" class="form-control" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="StockQuantity" class="font-weight-bold text-dark">Stok Miktarı</label>
+                                            <div class="form-line">
+                                                <input asp-for="StockQuantity" type="number" class="form-control" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="CategoryId" class="font-weight-bold text-dark">Kategori</label>
+                                    <div class="form-line border-0">
+                                        <select asp-for="CategoryId" class="form-control show-tick" asp-items="ViewBag.Categories" required style="cursor: pointer;">
+                                            <option value="">-- Lütfen Kategori Seçin --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="ProductImageUrl" class="font-weight-bold text-dark">Görsel URL</label>
+                                    <div class="form-line">
+                                        <input asp-for="ProductImageUrl" class="form-control" placeholder="Örn: https://..." autocomplete="off" />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="CountryOfOrigin" class="font-weight-bold text-dark">Menşei Ülke</label>
+                                    <div class="form-line">
+                                        <input asp-for="CountryOfOrigin" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="ProductDescription" class="font-weight-bold text-dark">Ürün Açıklaması</label>
+                                    <div class="form-line">
+                                        <textarea asp-for="ProductDescription" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4 border-top pt-4">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-round shadow-sm mr-2">
+                                    <i class="zmdi zmdi-floppy mr-1"></i> Kaydet
+                                </button>
+                                <a href="/Product/Index" class="btn btn-outline-secondary btn-round">
+                                    <i class="zmdi zmdi-close mr-1"></i> İptal
+                                </a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
