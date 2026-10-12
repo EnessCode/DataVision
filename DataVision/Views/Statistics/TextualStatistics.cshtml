@@ -1,0 +1,273 @@
+﻿@model TextualStatisticsViewModel
+
+@{
+    ViewData["Title"] = "Detaylı İstatistikler";
+}
+
+<div class="block-header"></div>
+
+<div class="container-fluid mt-2" style="overflow-x: hidden;">
+
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card shadow-sm border-0 rounded-lg mb-4">
+                <div class="header d-flex justify-content-between align-items-center bg-light border-bottom p-4">
+                    <div>
+                        <h5 class="m-0 text-dark font-weight-bold">Detaylı Metinsel İstatistikler</h5>
+                        <small class="text-muted">Sistemdeki ürün, satış, müşteri ve lokasyon dinamiklerinin analizi.</small>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="badge badge-primary px-3 py-2 font-12 shadow-sm">
+                            <i class="zmdi zmdi-chart mr-1"></i> Analiz Raporu
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-2 d-flex align-items-center">
+        <i class="zmdi zmdi-store text-secondary zmdi-hc-2x mr-2"></i>
+        <h5 class="m-0 font-weight-bold text-secondary">ÜRÜN VE STOK PERFORMANSI</h5>
+    </div>
+    <hr class="mt-0 mb-4" />
+
+    <div class="row clearfix mb-4">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #f8d7da; color: #dc3545;">
+                        <i class="zmdi zmdi-trending-up zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">EN PAHALI ÜRÜN</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.MostExpensiveProduct</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #d4edda; color: #28a745;">
+                        <i class="zmdi zmdi-trending-down zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">EN UCUZ ÜRÜN</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.CheapestProduct</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #d1ecf1; color: #17a2b8;">
+                        <i class="zmdi zmdi-storage zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">STOKU EN FAZLA OLAN</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.TopStockProduct</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #fff3cd; color: #ffc107;">
+                        <i class="zmdi zmdi-alert-triangle zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">STOKU EN AZ OLAN</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.LowestStockProduct</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-2 d-flex align-items-center">
+        <i class="zmdi zmdi-labels text-secondary zmdi-hc-2x mr-2"></i>
+        <h5 class="m-0 font-weight-bold text-secondary">SATIŞ VE KATEGORİ DİNAMİKLERİ</h5>
+    </div>
+    <hr class="mt-0 mb-4" />
+
+    <div class="row clearfix mb-4">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #cce5ff; color: #007bff;">
+                        <i class="zmdi zmdi-star zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">EN ÇOK SATAN ÜRÜN</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.TopOrderedProduct</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #e2e3e5; color: #6c757d;">
+                        <i class="zmdi zmdi-star-outline zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">EN AZ SATAN ÜRÜN</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.MinOrderedProduct</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #d4edda; color: #28a745;">
+                        <i class="zmdi zmdi-fire zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">EN POPÜLER KATEGORİ</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.TopCategory</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #f8d7da; color: #dc3545;">
+                        <i class="zmdi zmdi-snowflake zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">EN HAREKETSİZ KATEGORİ</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.LowestActiveCategory</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-2 d-flex align-items-center">
+        <i class="zmdi zmdi-accounts-alt text-secondary zmdi-hc-2x mr-2"></i>
+        <h5 class="m-0 font-weight-bold text-secondary">MÜŞTERİ VE LOKASYON AĞI</h5>
+    </div>
+    <hr class="mt-0 mb-4" />
+
+    <div class="row clearfix mb-4">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #fff3cd; color: #ffc107;">
+                        <i class="zmdi zmdi-account-star zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">VIP MÜŞTERİ</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.TopCustomer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #d1ecf1; color: #17a2b8;">
+                        <i class="zmdi zmdi-globe zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">EN AKTİF ÜLKE</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.TopCountry</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #cce5ff; color: #007bff;">
+                        <i class="zmdi zmdi-city zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">EN AKTİF ŞEHİR</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.TopCity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #d6d8db; color: #343a40;">
+                        <i class="zmdi zmdi-account-add zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">SON KAYIT OLAN MÜŞTERİ</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.LastAddedCustomer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-2 d-flex align-items-center">
+        <i class="zmdi zmdi-assignment-check text-secondary zmdi-hc-2x mr-2"></i>
+        <h5 class="m-0 font-weight-bold text-secondary">SİPARİŞ DURUMLARI VE ÖDEME</h5>
+    </div>
+    <hr class="mt-0 mb-4" />
+
+    <div class="row clearfix mb-4">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #d4edda; color: #28a745;">
+                        <i class="zmdi zmdi-check-all zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">EN SORUNSUZ ÜRÜN</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.MostCompletedProduct</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #f8d7da; color: #dc3545;">
+                        <i class="zmdi zmdi-block zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">EN ÇOK İPTAL EDİLEN</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.TopReturnedProduct</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #fff3cd; color: #ffc107;">
+                        <i class="zmdi zmdi-card zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">TERCİH EDİLEN ÖDEME</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.TopPaymentMethod</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="body p-4 d-flex align-items-center">
+                    <div class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #d1ecf1; color: #17a2b8;">
+                        <i class="zmdi zmdi-plus-circle zmdi-hc-2x"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted font-weight-bold mb-1" style="font-size: 11px; letter-spacing: 0.5px;">SİSTEME EKLENEN SON ÜRÜN</div>
+                        <div class="text-dark font-weight-bold" style="font-size: 16px;">@Model.LastAddedProduct</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

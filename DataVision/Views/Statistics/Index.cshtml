@@ -1,0 +1,200 @@
+﻿@model GeneralStatisticsViewModel
+
+@{
+    ViewData["Title"] = "Dashboard İstatistikleri";
+}
+
+<div class="block-header"></div>
+
+<div class="container-fluid mt-2" style="overflow-x: hidden;">
+
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card shadow-sm border-0 rounded-lg mb-4">
+                <div class="header d-flex justify-content-between align-items-center bg-light border-bottom p-4">
+                    <div>
+                        <h5 class="m-0 text-dark font-weight-bold">Temel İstatistikler</h5>
+                        <small class="text-muted">Sistemdeki genel sipariş, ürün, müşteri ve lokasyon özetleri.</small>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="badge badge-info px-3 py-2 font-12 shadow-sm">
+                            <i class="zmdi zmdi-calendar-note mr-1"></i> @DateTime.Now.ToString("dd MMMM yyyy")
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+
+        <div class="col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 l-seagreen">
+                <div class="body" style="padding: 25px 20px; display: flex; align-items: center;">
+                    <div class="icon" style="margin-right: 15px;">
+                        <i class="zmdi zmdi-shopping-cart zmdi-hc-2x text-white"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text text-white" style="font-size: 12px; margin-bottom: 5px; opacity: 0.9;">TOPLAM SİPARİŞ</div>
+                        <div class="number text-white" style="font-size: 20px; font-weight: bold;">@Model.TotalOrders.ToString("N0")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 l-parpl">
+                <div class="body" style="padding: 25px 20px; display: flex; align-items: center;">
+                    <div class="icon" style="margin-right: 15px;">
+                        <i class="zmdi zmdi-accounts zmdi-hc-2x text-white"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text text-white" style="font-size: 12px; margin-bottom: 5px; opacity: 0.9;">AKTİF MÜŞTERİ</div>
+                        <div class="number text-white" style="font-size: 20px; font-weight: bold;">@Model.TotalCustomers.ToString("N0")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 l-blue">
+                <div class="body" style="padding: 25px 20px; display: flex; align-items: center;">
+                    <div class="icon" style="margin-right: 15px;">
+                        <i class="zmdi zmdi-labels zmdi-hc-2x text-white"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text text-white" style="font-size: 12px; margin-bottom: 5px; opacity: 0.9;">TOPLAM ÜRÜN</div>
+                        <div class="number text-white" style="font-size: 20px; font-weight: bold;">@Model.TotalProducts.ToString("N0")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 l-coral">
+                <div class="body" style="padding: 25px 20px; display: flex; align-items: center;">
+                    <div class="icon" style="margin-right: 15px;">
+                        <i class="zmdi zmdi-layers zmdi-hc-2x text-white"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text text-white" style="font-size: 12px; margin-bottom: 5px; opacity: 0.9;">KATEGORİ SAYISI</div>
+                        <div class="number text-white" style="font-size: 20px; font-weight: bold;">@Model.TotalCategories.ToString("N0")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 l-amber">
+                <div class="body" style="padding: 25px 20px; display: flex; align-items: center;">
+                    <div class="icon" style="margin-right: 15px;">
+                        <i class="zmdi zmdi-globe zmdi-hc-2x text-white"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text text-white" style="font-size: 12px; margin-bottom: 5px; opacity: 0.9;">HİZMET VERİLEN ÜLKE</div>
+                        <div class="number text-white" style="font-size: 20px; font-weight: bold;">@Model.CountryCount.ToString("N0")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 l-pink">
+                <div class="body" style="padding: 25px 20px; display: flex; align-items: center;">
+                    <div class="icon" style="margin-right: 15px;">
+                        <i class="zmdi zmdi-city zmdi-hc-2x text-white"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text text-white" style="font-size: 12px; margin-bottom: 5px; opacity: 0.9;">HİZMET VERİLEN ŞEHİR</div>
+                        <div class="number text-white" style="font-size: 20px; font-weight: bold;">@Model.CityCount.ToString("N0")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 l-seagreen">
+                <div class="body" style="padding: 25px 20px; display: flex; align-items: center;">
+                    <div class="icon" style="margin-right: 15px;">
+                        <i class="zmdi zmdi-check-circle zmdi-hc-2x text-white"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text text-white" style="font-size: 12px; margin-bottom: 5px; opacity: 0.9;">TAMAMLANAN SİPARİŞ</div>
+                        <div class="number text-white" style="font-size: 20px; font-weight: bold;">@Model.CompletedOrders.ToString("N0")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 l-coral">
+                <div class="body" style="padding: 25px 20px; display: flex; align-items: center;">
+                    <div class="icon" style="margin-right: 15px;">
+                        <i class="zmdi zmdi-close-circle zmdi-hc-2x text-white"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text text-white" style="font-size: 12px; margin-bottom: 5px; opacity: 0.9;">İPTAL EDİLEN SİPARİŞ</div>
+                        <div class="number text-white" style="font-size: 20px; font-weight: bold;">@Model.CancelledOrders.ToString("N0")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 l-blue">
+                <div class="body" style="padding: 25px 20px; display: flex; align-items: center;">
+                    <div class="icon" style="margin-right: 15px;">
+                        <i class="zmdi zmdi-calendar-note zmdi-hc-2x text-white"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text text-white" style="font-size: 12px; margin-bottom: 5px; opacity: 0.9;">BUGÜNÜN SİPARİŞLERİ</div>
+                        <div class="number text-white" style="font-size: 20px; font-weight: bold;">@Model.TodayOrders.ToString("N0")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 l-parpl">
+                <div class="body" style="padding: 25px 20px; display: flex; align-items: center;">
+                    <div class="icon" style="margin-right: 15px;">
+                        <i class="zmdi zmdi-calendar zmdi-hc-2x text-white"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text text-white" style="font-size: 12px; margin-bottom: 5px; opacity: 0.9;">BU AYIN SİPARİŞLERİ</div>
+                        <div class="number text-white" style="font-size: 20px; font-weight: bold;">@Model.CurrentMonthOrders.ToString("N0")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 l-amber">
+                <div class="body" style="padding: 25px 20px; display: flex; align-items: center;">
+                    <div class="icon" style="margin-right: 15px;">
+                        <i class="zmdi zmdi-money zmdi-hc-2x text-white"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text text-white" style="font-size: 12px; margin-bottom: 5px; opacity: 0.9;">ORT. ÜRÜN FİYATI</div>
+                        <div class="number text-white" style="font-size: 20px; font-weight: bold;">@Model.AverageProductPrice.ToString("N2") ₺</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 m-b-20">
+            <div class="card shadow-sm border-0 l-pink">
+                <div class="body" style="padding: 25px 20px; display: flex; align-items: center;">
+                    <div class="icon" style="margin-right: 15px;">
+                        <i class="zmdi zmdi-storage zmdi-hc-2x text-white"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text text-white" style="font-size: 12px; margin-bottom: 5px; opacity: 0.9;">ORTALAMA STOK</div>
+                        <div class="number text-white" style="font-size: 20px; font-weight: bold;">@Model.AverageProductQuantity.ToString("N0")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
