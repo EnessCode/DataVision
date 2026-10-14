@@ -1,0 +1,57 @@
+﻿@model DashboardKpiTargetsViewModel
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-6 col-sm-12">
+        <div class="card top-report border-0 shadow-sm rounded-lg mb-4">
+            <div class="body p-4">
+                <h3 class="m-t-0 font-weight-bold text-dark">
+                    %@Model.FulfillmentRate
+                    <i class="zmdi zmdi-trending-up float-right text-success"></i>
+                </h3>
+                <p class="text-muted mb-2">Sipariş Tamamlanma Oranı</p>
+                <div class="progress mb-2" style="height: 8px; border-radius: 4px;">
+                    <div class="progress-bar l-turquoise" role="progressbar"
+                         aria-valuenow="@((int)Model.FulfillmentRate)" aria-valuemin="0" aria-valuemax="100"
+                         style="width: @((int)Model.FulfillmentRate)%;"></div>
+                </div>
+                <small class="text-muted">Toplam @Model.TotalOrdersCount siparişten @Model.CompletedOrdersCount adedi tamamlandı</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-6 col-sm-12">
+        <div class="card top-report border-0 shadow-sm rounded-lg mb-4">
+            <div class="body p-4">
+                <h3 class="m-t-0 font-weight-bold text-dark">
+                    %@Model.CriticalStockRate
+                    <i class="zmdi zmdi-alert-circle-o float-right text-warning"></i>
+                </h3>
+                <p class="text-muted mb-2">Kritik Stok Oranı (&lt; 20 Adet)</p>
+                <div class="progress mb-2" style="height: 8px; border-radius: 4px;">
+                    <div class="progress-bar l-blush" role="progressbar"
+                         aria-valuenow="@((int)Model.CriticalStockRate)" aria-valuemin="0" aria-valuemax="100"
+                         style="width: @((int)Model.CriticalStockRate)%;"></div>
+                </div>
+                <small class="text-muted">@Model.TotalProductsCount üründen @Model.CriticalStockProductsCount tanesi kritik stokta</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card top-report border-0 shadow-sm rounded-lg mb-4">
+            <div class="body p-4">
+                <h3 class="m-t-0 font-weight-bold text-dark">
+                    %@Model.CancellationRate
+                    <i class="zmdi zmdi-trending-down float-right text-danger"></i>
+                </h3>
+                <p class="text-muted mb-2">Sipariş İptal Oranı</p>
+                <div class="progress mb-2" style="height: 8px; border-radius: 4px;">
+                    <div class="progress-bar l-parpl" role="progressbar"
+                         aria-valuenow="@((int)Model.CancellationRate)" aria-valuemin="0" aria-valuemax="100"
+                         style="width: @((int)Model.CancellationRate)%;"></div>
+                </div>
+                <small class="text-muted">Toplam @Model.CancelledOrdersCount sipariş iptal edildi</small>
+            </div>
+        </div>
+    </div>
+</div>

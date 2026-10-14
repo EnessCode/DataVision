@@ -1,0 +1,26 @@
+﻿@{
+	ViewData["Title"] = "Yönetim Paneli";
+}
+
+@await Component.InvokeAsync("DashboardHeader")
+
+@await Component.InvokeAsync("DashboardCharts")
+
+<div class="row clearfix">
+	<div class="col-lg-9 col-md-8">
+		@await Component.InvokeAsync("DashboardAnnualReport")
+	</div>
+	<div class="col-lg-3 col-md-4">
+		@await Component.InvokeAsync("DashboardKpiTargets")
+	</div>
+</div>
+
+@await Component.InvokeAsync("DashboardEntityCounts")
+
+<div class="row clearfix">
+	<div class="col-md-12 col-lg-12">
+		@await Component.InvokeAsync("DashboardMap")
+	</div>
+</div>
+
+@await Component.InvokeAsync("RecentOrders")

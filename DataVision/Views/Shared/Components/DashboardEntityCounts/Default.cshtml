@@ -1,0 +1,52 @@
+﻿@model DashboardEntityCountsViewModel
+
+<div class="row clearfix">
+    <div class="col-lg-12">
+        <div class="card border-0 shadow-sm rounded-lg mb-4">
+            <ul class="row profile_state list-unstyled mb-0">
+                <li class="col-lg-2 col-md-4 col-6">
+                    <div class="body py-4">
+                        <i class="zmdi zmdi-label col-amber"></i>
+                        <h4 class="font-weight-bold text-dark mt-2 mb-1">@Model.TotalCategories.ToString("N0")</h4>
+                        <span class="text-muted">Kategoriler</span>
+                    </div>
+                </li>
+                <li class="col-lg-2 col-md-4 col-6">
+                    <div class="body py-4">
+                        <i class="zmdi zmdi-shopping-basket col-blue"></i>
+                        <h4 class="font-weight-bold text-dark mt-2 mb-1">@Model.TotalProducts.ToString("N0")</h4>
+                        <span class="text-muted">Ürünler</span>
+                    </div>
+                </li>
+                <li class="col-lg-2 col-md-4 col-6">
+                    <div class="body py-4">
+                        <i class="zmdi zmdi-accounts col-red"></i>
+                        <h4 class="font-weight-bold text-dark mt-2 mb-1">@Model.TotalCustomers.ToString("N0")</h4>
+                        <span class="text-muted">Müşteriler</span>
+                    </div>
+                </li>
+                <li class="col-lg-2 col-md-4 col-6">
+                    <div class="body py-4">
+                        <i class="zmdi zmdi-shopping-cart text-success"></i>
+                        <h4 class="font-weight-bold text-dark mt-2 mb-1">@Model.TotalOrders.ToString("N0")</h4>
+                        <span class="text-muted">Siparişler</span>
+                    </div>
+                </li>
+                <li class="col-lg-2 col-md-4 col-6">
+                    <div class="body py-4">
+                        <i class="zmdi zmdi-globe text-info"></i>
+                        <h4 class="font-weight-bold text-dark mt-2 mb-1">@Model.CountryCount.ToString("N0")</h4>
+                        <span class="text-muted">Ülkeler</span>
+                    </div>
+                </li>
+                <li class="col-lg-2 col-md-4 col-6">
+                    <div class="body py-4">
+                        <i class="zmdi zmdi-city text-warning"></i>
+                        <h4 class="font-weight-bold text-dark mt-2 mb-1">@Model.CityCount.ToString("N0")</h4>
+                        <span class="text-muted">Şehirler</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

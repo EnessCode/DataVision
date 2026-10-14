@@ -1,0 +1,83 @@
+﻿@model List<OrderSummaryViewModel>
+
+<div class="row clearfix">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="card border-0 shadow-sm rounded-lg mb-4">
+            <div class="header d-flex justify-content-between align-items-center bg-light border-bottom p-3 rounded-top">
+                <div>
+                    <h2 class="m-0 font-weight-bold text-dark">
+                        Son 1 Haftanın Siparişleri
+                        <small class="text-muted d-block mt-1">Son 7 gün içinde gelen en güncel 10 sipariş listelenmektedir.</small>
+                    </h2>
+                </div>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="zmdi zmdi-more-vert"></i>
+                        </a>
+                        <ul class="dropdown-menu slideUp pull-right">
+                            <li><a href="/Order/Index">Tüm Siparişlere Git</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive p-0">
+                <table class="table table-hover table-custom mb-0 align-middle">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <th class="border-0 py-3 pl-4">MÜŞTERİ</th>
+                            <th class="border-0 py-3">ÜRÜN</th>
+                            <th class="border-0 py-3 text-center">MİKTAR</th>
+                            <th class="border-0 py-3">TARİH & SAAT</th>
+                            <th class="border-0 py-3">ÖDEME TÜRÜ</th>
+                            <th class="border-0 py-3 text-center pr-4">DURUM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="pl-4 font-weight-bold text-dark">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-circle bg-light text-primary mr-3 overflow-hidden" style="width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                <i class="zmdi zmdi-account"></i>
+                                            </div>
+                                            @item.CustomerFullName
+                                        </div>
+                                    </td>
+                                    <td class="text-muted">
+                                        @item.ProductName
+                                    </td>
+                                    <td class="text-center font-weight-bold">
+                                        @item.Quantity
+                                    </td>
+                                    <td class="text-muted">
+                                        <i class="zmdi zmdi-time mr-1"></i>
+                                        @item.OrderTime
+                                    </td>
+                                    <td>
+                                        <span class="text-dark">@item.PaymentMethod</span>
+                                    </td>
+                                    <td class="text-center pr-4">
+                                        <span class="badge @item.StatusBadgeClass px-2 py-1">@item.OrderStatus</span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center py-5 text-muted">
+                                    <i class="zmdi zmdi-shopping-cart" style="font-size: 2.5rem;"></i>
+                                    <p class="mt-3 mb-0 font-16">Son 1 hafta içinde hiç sipariş alınmadı.</p>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
