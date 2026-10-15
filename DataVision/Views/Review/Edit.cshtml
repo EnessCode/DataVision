@@ -1,0 +1,112 @@
+﻿@model Review
+
+@{
+    ViewData["Title"] = "Değerlendirme Güncelle";
+}
+
+<div class="block-header"></div>
+
+<div class="container-fluid mt-2">
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card shadow-sm border-0 rounded-lg">
+                <div class="header d-flex align-items-center bg-light border-bottom p-4">
+                    <div class="icon-circle bg-warning text-white mr-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; border-radius: 50%;">
+                        <i class="zmdi zmdi-edit" style="font-size: 1.8rem;"></i>
+                    </div>
+                    <div>
+                        <h5 class="m-0 text-dark font-weight-bold">Değerlendirme Güncelle</h5>
+                        <small class="text-muted">Mevcut ürün yorumunun bilgilerini düzenliyorsunuz.</small>
+                    </div>
+                </div>
+
+                <div class="body p-4">
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="ReviewId" />
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="ProductId" class="font-weight-bold text-dark">Ürün ID</label>
+                                    <div class="form-line">
+                                        <input asp-for="ProductId" type="number" class="form-control" required />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="CustomerId" class="font-weight-bold text-dark">Müşteri ID</label>
+                                    <div class="form-line">
+                                        <input asp-for="CustomerId" type="number" class="form-control" required />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="PurchaseType" class="font-weight-bold text-dark">Satın Alma Türü</label>
+                                    <div class="form-line border-0">
+                                        <select asp-for="PurchaseType" class="form-control show-tick" required style="cursor: pointer;">
+                                            <option value="">-- Satın Alma Türü Seçin --</option>
+                                            <option value="Online">Online</option>
+                                            <option value="InStore">InStore</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="Rating" class="font-weight-bold text-dark">Puan (1 - 5)</label>
+                                            <div class="form-line">
+                                                <input asp-for="Rating" type="number" min="1" max="5" class="form-control" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label asp-for="Sentiment" class="font-weight-bold text-dark">Duygu Analizi</label>
+                                            <div class="form-line border-0">
+                                                <select asp-for="Sentiment" class="form-control show-tick" required style="cursor: pointer;">
+                                                    <option value="">-- Seçiniz --</option>
+                                                    <option value="Positive">Olumlu</option>
+                                                    <option value="Negative">Olumsuz</option>
+                                                    <option value="Neutral">Nötr</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="ReviewDate" class="font-weight-bold text-dark">Değerlendirme Tarihi</label>
+                                    <div class="form-line">
+                                        <input asp-for="ReviewDate" type="date" class="form-control" required />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="ReviewText" class="font-weight-bold text-dark">Yorum İçeriği</label>
+                                    <div class="form-line">
+                                        <textarea asp-for="ReviewText" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4 border-top pt-4">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-warning btn-round shadow-sm mr-2 text-white">
+                                    <i class="zmdi zmdi-refresh-sync mr-1"></i> Değişiklikleri Kaydet
+                                </button>
+                                <a href="/Review/Index" class="btn btn-outline-secondary btn-round">
+                                    <i class="zmdi zmdi-close mr-1"></i> İptal
+                                </a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

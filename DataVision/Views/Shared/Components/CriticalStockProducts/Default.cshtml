@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Product>
+
+<style>
+    .critical-timeline {
+        position: relative;
+        padding-left: 22px;
+        list-style: none;
+        margin-bottom: 0;
+    }
+
+        .critical-timeline::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            bottom: 6px;
+            left: 5px;
+            width: 2px;
+            background-color: #e2e8f0;
+        }
+
+    .critical-timeline-item {
+        position: relative;
+        margin-bottom: 1.15rem;
+        font-size: 0.9rem;
+        color: #4a5568;
+    }
+
+        .critical-timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .critical-timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 2px solid #2d3748;
+        }
+</style>
+
+<div class="card shadow-sm border-0 rounded-lg h-100">
+    <div class="header bg-white border-0 pt-4 px-4 pb-2">
+        <h6 class="m-0 text-dark font-weight-bold" style="font-size: 1rem;">Stok Durumu Kritik Olan Ürünler</h6>
+    </div>
+    <div class="body px-4 pt-3 pb-4">
+        @if (Model != null && Model.Any())
+        {
+            <ul class="critical-timeline">
+                @foreach (var item in Model)
+                {
+                    <li class="critical-timeline-item">
+                        @item.ProductName: <strong>@item.StockQuantity Adet</strong>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted text-center py-4 mb-0">Kritik stokta ürün bulunmuyor.</p>
+        }
+    </div>
+</div>

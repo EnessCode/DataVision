@@ -23,4 +23,16 @@
 	</div>
 </div>
 
+<div class="row clearfix mt-4">
+	<div class="col-lg-4 col-md-12 mb-4">
+		@await Component.InvokeAsync("RecentReviews")
+	</div>
+	<div class="col-lg-4 col-md-12 mb-4">
+		@await Component.InvokeAsync("CriticalStockProducts")
+	</div>
+	<div class="col-lg-4 col-md-12 mb-4">
+		@await Component.InvokeAsync("OrdersByCountry")
+	</div>
+</div>
+
 @await Component.InvokeAsync("RecentOrders")

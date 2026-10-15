@@ -1,0 +1,99 @@
+﻿@model IEnumerable<CountryOrderStatViewModel>
+@using System.Text.Json
+
+@{
+    var countries = Model?.Select(x => x.Country).ToList() ?? new List<string>();
+    var counts = Model?.Select(x => x.OrderCount).ToList() ?? new List<int>();
+    var percentages = Model?.Select(x => x.Percentage).ToList() ?? new List<double>();
+
+    var defaultItem = Model?.Skip(3).FirstOrDefault() ?? Model?.FirstOrDefault();
+}
+
+<div class="card shadow-sm border-0 rounded-lg h-100">
+    <div class="header bg-white border-0 pt-4 px-4 pb-2">
+        <h4 class="m-0 text-dark font-weight-bold">Ülkelere Göre Siparişler</h4>
+    </div>
+    <div class="body px-4 pt-2 pb-4">
+
+        <div class="position-relative d-flex justify-content-center align-items-center my-3" style="height: 210px;">
+            <canvas id="ordersByCountryChart" style="max-height: 200px; max-width: 200px; z-index: 2;"></canvas>
+            <div id="donutCenterText" class="position-absolute text-center" style="pointer-events: none; z-index: 1;">
+                <h5 class="m-0 font-weight-bold text-dark" id="centerCountryName">@(defaultItem?.Country ?? "-")</h5>
+                <span class="text-muted" style="font-size: 0.95rem;" id="centerCountryPercent">%@(defaultItem?.Percentage.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture) ?? "0")</span>
+            </div>
+        </div>
+
+        <div class="table-responsive mt-3">
+            <table class="table table-sm table-borderless border-top mb-0">
+                <thead>
+                    <tr class="border-bottom text-dark" style="font-size: 0.85rem;">
+                        <th class="py-2">#</th>
+                        <th class="py-2">Ülke</th>
+                        <th class="py-2 text-right">Sipariş Sayısı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        int rank = 1;
+                        foreach (var item in Model)
+                        {
+                            <tr class="border-bottom" style="font-size: 0.85rem;">
+                                <td class="py-2 text-muted">@rank</td>
+                                <td class="py-2 text-dark">@item.Country</td>
+                                <td class="py-2 text-right font-weight-bold text-dark">@item.OrderCount</td>
+                            </tr>
+                            rank++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center py-3 text-muted">Veri bulunamadı.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var ctx = document.getElementById('ordersByCountryChart').getContext('2d');
+        var labels = @Html.Raw(JsonSerializer.Serialize(countries));
+        var dataCounts = @Html.Raw(JsonSerializer.Serialize(counts));
+        var dataPercents = @Html.Raw(JsonSerializer.Serialize(percentages));
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: dataCounts,
+                    backgroundColor: ['#4caf50', '#03a9f4', '#ff9800', '#e91e63', '#9c27b0'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff',
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                cutout: '72%',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: true }
+                },
+                onHover: function (event, elements) {
+                    if (elements && elements.length > 0) {
+                        var index = elements[0].index;
+                        document.getElementById('centerCountryName').innerText = labels[index];
+                        document.getElementById('centerCountryPercent').innerText = dataPercents[index] + '%';
+                    }
+                }
+            }
+        });
+    });
+</script>
