@@ -1,0 +1,194 @@
+﻿@model IEnumerable<PaymentForecastViewModel>
+
+@{
+    ViewData["Title"] = "Ödeme Yöntemi Tahminleme";
+    int rowNo = 1;
+    var topMethod = Model?.OrderByDescending(x => x.Predicted3MonthAverage).FirstOrDefault();
+    var risingMethod = Model?.OrderByDescending(x => x.ChangePercentage).FirstOrDefault();
+    int totalPredicted3Months = Model?.Sum(x => x.Predicted3MonthTotal) ?? 0;
+}
+
+<div class="block-header"></div>
+
+<div class="container-fluid mt-2">
+    @if (Model != null && Model.Any())
+    {
+        <div class="row clearfix mb-3">
+            <div class="col-lg-4 col-md-6">
+                <div class="card shadow-sm border-0 rounded-lg mb-2">
+                    <div class="body p-3 d-flex align-items-center">
+                        <div class="icon-circle bg-light text-primary mr-3" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.5rem;">
+                            <i class="zmdi zmdi-trending-up"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">Gelecek 3 Ay Toplam Tahmini İşlem</small>
+                            <h4 class="m-0 font-weight-bold text-dark">@totalPredicted3Months.ToString("N0") <small class="font-12 text-muted">Sipariş</small></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card shadow-sm border-0 rounded-lg mb-2">
+                    <div class="body p-3 d-flex align-items-center">
+                        <div class="icon-circle bg-light text-success mr-3" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.5rem;">
+                            <i class="zmdi zmdi-card"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">Lider Ödeme Yöntemi (3 Aylık Ort.)</small>
+                            <h4 class="m-0 font-weight-bold text-dark">
+                                @(topMethod?.PaymentMethod ?? "-")
+                                <span class="badge badge-success font-12 ml-1">@(topMethod?.Predicted3MonthAverage.ToString("N1")) / ay</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="card shadow-sm border-0 rounded-lg mb-2">
+                    <div class="body p-3 d-flex align-items-center">
+                        <div class="icon-circle bg-light text-warning mr-3" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.5rem;">
+                            <i class="zmdi zmdi-flash"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">En Hızlı Büyüyen Yöntem</small>
+                            <h4 class="m-0 font-weight-bold text-dark">
+                                @(risingMethod?.PaymentMethod ?? "-")
+                                <span class="badge @(risingMethod?.ChangePercentage >= 0 ? "badge-info" : "badge-danger") font-12 ml-1">
+                                    @(risingMethod?.ChangePercentage >= 0 ? "+" : "")@(risingMethod?.ChangePercentage)%
+                                </span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card shadow-sm border-0 rounded-lg">
+                <div class="header d-flex justify-content-between align-items-center bg-light border-bottom p-4">
+                    <div>
+                        <h5 class="m-0 text-dark font-weight-bold">
+                            <i class="zmdi zmdi-chart mr-2 text-primary"></i>Ödeme Yöntemi Tahminleme (Forecast)
+                        </h5>
+                        <small class="text-muted">Son 24 aylık sipariş verilerine dayalı gelecek 3 aylık Lineer Regresyon projeksiyonu.</small>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="badge badge-info px-3 py-2 font-12 mr-2">
+                            Analiz Edilen Yöntem: @(Model?.Count() ?? 0)
+                        </span>
+                        <span class="badge badge-dark px-3 py-2 font-12">
+                            <i class="zmdi zmdi-calendar mr-1"></i> Periyot: +3 Ay
+                        </span>
+                    </div>
+                </div>
+
+                <div class="body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-custom mb-0 align-middle">
+                            <thead class="bg-dark text-white">
+                                <tr>
+                                    <th class="border-0 py-3 text-center" style="width: 60px;">#</th>
+                                    <th class="border-0 py-3">ÖDEME YÖNTEMİ</th>
+                                    <th class="border-0 py-3 text-center">GEÇMİŞ 2 YIL (ORT.)</th>
+                                    <th class="border-0 py-3 text-center">@(ViewBag.NextMonth1Name ?? "1. Ay")</th>
+                                    <th class="border-0 py-3 text-center">@(ViewBag.NextMonth2Name ?? "2. Ay")</th>
+                                    <th class="border-0 py-3 text-center">@(ViewBag.NextMonth3Name ?? "3. Ay")</th>
+                                    <th class="border-0 py-3 text-center">3 AYLIK ORT. TAHMİN</th>
+                                    <th class="border-0 py-3 text-center" style="padding-right: 1.5rem;">TREND & DEĞİŞİM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        string iconClass = item.PaymentMethod switch
+                                        {
+                                            "Kredi Kartı" => "zmdi-card",
+                                            "Banka Kartı" => "zmdi-card-membership",
+                                            "Havale / EFT" => "zmdi-balance",
+                                            "Google Pay" => "zmdi-google",
+                                            "PayPal" => "zmdi-paypal",
+                                            "Apple Pay" => "zmdi-apple",
+                                            "Kapıda Ödeme" => "zmdi-money",
+                                            _ => "zmdi-money-box"
+                                        };
+
+                                        string badgeClass = item.TrendStatus switch
+                                        {
+                                            "Yükselişte" => "badge-success",
+                                            "Düşüşte" => "badge-danger",
+                                            _ => "badge-warning"
+                                        };
+
+                                        string trendIcon = item.TrendStatus switch
+                                        {
+                                            "Yükselişte" => "zmdi-trending-up",
+                                            "Düşüşte" => "zmdi-trending-down",
+                                            _ => "zmdi-trending-flat"
+                                        };
+
+                                        <tr>
+                                            <td class="text-muted font-weight-bold text-center">@(rowNo++)</td>
+                                            <td class="font-weight-bold text-dark">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="icon-circle bg-light text-primary mr-3" style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+                                                        <i class="zmdi @iconClass" style="font-size: 1.1rem;"></i>
+                                                    </div>
+                                                    <div>
+                                                        <div>@item.PaymentMethod</div>
+                                                        <small class="text-muted font-12">Son 2 Yıl Toplam: @item.TotalLast2Years.ToString("N0")</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="text-dark font-weight-bold">@item.MonthlyHistoricalAverage.ToString("N1")</span>
+                                                <div class="text-muted font-12">işlem / ay</div>
+                                            </td>
+                                            <td class="text-center text-muted font-weight-bold">
+                                                @item.PredictedMonth1.ToString("N0")
+                                            </td>
+                                            <td class="text-center text-muted font-weight-bold">
+                                                @item.PredictedMonth2.ToString("N0")
+                                            </td>
+                                            <td class="text-center text-muted font-weight-bold">
+                                                @item.PredictedMonth3.ToString("N0")
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="text-primary font-weight-bold" style="font-size: 1.05rem;">
+                                                    @item.Predicted3MonthAverage.ToString("N1") <small class="text-muted">/ ay</small>
+                                                </div>
+                                                <div class="text-muted font-12">
+                                                    3 Aylık Toplam: <strong>@item.Predicted3MonthTotal.ToString("N0")</strong>
+                                                </div>
+                                            </td>
+                                            <td class="text-center" style="padding-right: 1.5rem;">
+                                                <span class="badge @badgeClass px-2 py-1">
+                                                    <i class="zmdi @trendIcon mr-1"></i> @item.TrendStatus
+                                                </span>
+                                                <div class="font-12 mt-1 @(item.ChangePercentage > 0 ? "text-success" : (item.ChangePercentage < 0 ? "text-danger" : "text-muted")) font-weight-bold">
+                                                    @(item.ChangePercentage > 0 ? "+" : "")@item.ChangePercentage%
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="8" class="text-center py-5 text-muted">
+                                            <i class="zmdi zmdi-chart-donut" style="font-size: 2.5rem;"></i>
+                                            <p class="mt-3 mb-0 font-16">Tahminleme yapılacak yeterli geçmiş sipariş verisi bulunamadı.</p>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
