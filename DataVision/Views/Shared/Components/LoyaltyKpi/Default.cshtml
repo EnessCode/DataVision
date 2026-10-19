@@ -1,0 +1,24 @@
+﻿@{
+    var kpis = new[]
+    {
+        new { Title = "Analiz Edilen Müşteri", Value = $"{ViewBag.TotalCustomers}", Sub = "Aktif siparişi bulunanlar", Color = "text-primary", SubColor = "text-muted" },
+        new { Title = "Şampiyon (VIP) Müşteriler", Value = $"{ViewBag.VipCount}", Sub = "Skoru 80 ve üzeri olanlar", Color = "text-success", SubColor = "text-success" },
+        new { Title = "Ortalama Sadakat Skoru", Value = $"{ViewBag.AvgScore} / 100", Sub = "ML.NET Tahmin Ortalaması", Color = "text-info", SubColor = "text-muted" },
+        new { Title = "Risk & Kayıp Adayı (Churn)", Value = $"{ViewBag.RiskCount}", Sub = "Acil kampanya yapılması gerekenler", Color = "text-danger", SubColor = "text-danger" }
+    };
+}
+
+<div class="row g-3 mb-4">
+    @foreach (var kpi in kpis)
+    {
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase fw-semibold mb-2">@kpi.Title</h6>
+                    <h2 class="fw-bold mb-0 @kpi.Color">@kpi.Value</h2>
+                    <small class="@kpi.SubColor">@kpi.Sub</small>
+                </div>
+            </div>
+        </div>
+    }
+</div>
