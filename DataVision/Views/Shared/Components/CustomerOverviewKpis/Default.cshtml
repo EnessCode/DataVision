@@ -1,0 +1,83 @@
+﻿@model CustomerOverviewViewModel
+
+<div class="row clearfix">
+    <!-- 1. Kart: Toplam Müşteri Sayısı -->
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card shadow-sm border-0 rounded-lg w-100 h-100 mb-0">
+            <div class="body p-4 d-flex flex-column justify-content-between h-100">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <small class="text-muted font-weight-bold text-uppercase d-block mb-1">Toplam Müşteri Sayısı</small>
+                        <h3 class="m-0 font-weight-bold text-dark">@Model.TotalCustomerCount.ToString("N0")</h3>
+                    </div>
+                    <div class="icon-circle bg-light text-primary flex-shrink-0 ml-2" style="width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.7rem;">
+                        <i class="zmdi zmdi-accounts"></i>
+                    </div>
+                </div>
+                <small class="text-muted font-12 mt-3 d-block">
+                    <i class="zmdi zmdi-trending-up text-primary mr-1"></i>Büyümenin ilk göstergesi
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Kart: Ortalama Sipariş Sayısı (Kişi Başına) -->
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card shadow-sm border-0 rounded-lg w-100 h-100 mb-0">
+            <div class="body p-4 d-flex flex-column justify-content-between h-100">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <small class="text-muted font-weight-bold text-uppercase d-block mb-1">Ort. Sipariş (Kişi Başı)</small>
+                        <h3 class="m-0 font-weight-bold text-dark">@Model.AverageOrderPerCustomer.ToString("N1") <small class="font-14 text-muted">Adet</small></h3>
+                    </div>
+                    <div class="icon-circle bg-light text-info flex-shrink-0 ml-2" style="width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.7rem;">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                    </div>
+                </div>
+                <small class="text-muted font-12 mt-3 d-block">
+                    <i class="zmdi zmdi-repeat text-info mr-1"></i>Müşteri etkileşim sıklığı
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Kart: Son 3 Ayda Aktif Müşteri Sayısı -->
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card shadow-sm border-0 rounded-lg w-100 h-100 mb-0">
+            <div class="body p-4 d-flex flex-column justify-content-between h-100">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <small class="text-muted font-weight-bold text-uppercase d-block mb-1">Aktif Müşteri (Son 3 Ay)</small>
+                        <h3 class="m-0 font-weight-bold text-dark">@Model.ActiveCustomersLast3Months.ToString("N0") <small class="font-14 text-muted">Kişi</small></h3>
+                    </div>
+                    <div class="icon-circle bg-light text-success flex-shrink-0 ml-2" style="width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.7rem;">
+                        <i class="zmdi zmdi-account-check"></i>
+                    </div>
+                </div>
+                <small class="text-muted font-12 mt-3 d-block">
+                    <i class="zmdi zmdi-check-circle text-success mr-1"></i>En az 1 sipariş verenler (<strong>%@Model.ActiveCustomerPercentage</strong>)
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Kart: Son 3 Ayda Sipariş Vermeyen (Pasif) Müşteri Sayısı -->
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card shadow-sm border-0 rounded-lg w-100 h-100 mb-0">
+            <div class="body p-4 d-flex flex-column justify-content-between h-100">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <small class="text-muted font-weight-bold text-uppercase d-block mb-1">Pasif Müşteri (Son 3 Ay)</small>
+                        <h3 class="m-0 font-weight-bold text-dark">@Model.InactiveCustomersLast3Months.ToString("N0") <small class="font-14 text-muted">Kişi</small></h3>
+                    </div>
+                    <div class="icon-circle bg-light text-danger flex-shrink-0 ml-2" style="width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.7rem;">
+                        <i class="zmdi zmdi-account-o"></i>
+                    </div>
+                </div>
+                <small class="text-muted font-12 mt-3 d-block">
+                    <i class="zmdi zmdi-alert-circle text-danger mr-1"></i>Hiç sipariş vermeyenler (<strong>%@Model.InactiveCustomerPercentage</strong>)
+                </small>
+            </div>
+        </div>
+    </div>
+</div>

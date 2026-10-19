@@ -1,0 +1,31 @@
+﻿@model List<PaymentPreferenceViewModel>
+
+<div class="card shadow-sm border-0 rounded-lg h-100 mb-0">
+    <div class="header bg-light border-bottom p-3">
+        <h6 class="m-0 text-dark font-weight-bold">
+            <i class="zmdi zmdi-card mr-2 text-success"></i>Ödeme Yöntemi Tercihleri
+        </h6>
+        <small class="text-muted">En popüler ödeme kanalları</small>
+    </div>
+    <div class="body p-3">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var pref in Model)
+            {
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between font-13 mb-1">
+                        <span class="font-weight-bold text-dark">@pref.PaymentMethod</span>
+                        <span class="text-muted">%@pref.Percentage</span>
+                    </div>
+                    <div class="progress" style="height: 6px; border-radius: 3px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: @pref.Percentage.ToString(System.Globalization.CultureInfo.InvariantCulture)%;"></div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-muted text-center py-4">Veri bulunamadı.</p>
+        }
+    </div>
+</div>

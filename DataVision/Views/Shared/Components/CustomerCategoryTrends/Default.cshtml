@@ -1,0 +1,119 @@
+﻿@model CustomerCategoryTrendViewModel
+
+<div class="card shadow-sm border-0 rounded-lg mb-4">
+    <div class="header d-flex justify-content-between align-items-center bg-light border-bottom p-4">
+        <div>
+            <h5 class="m-0 text-dark font-weight-bold">
+                <i class="zmdi zmdi-chart-line mr-2 text-primary"></i>Müşteri Sipariş Kategorileri
+            </h5>
+            <small class="text-muted">Kategorilere göre aylık sipariş dağılımı ve dönemsel trend analizi.</small>
+        </div>
+        <div>
+            <span class="badge badge-info px-3 py-2 font-12">Son 12 Ay</span>
+        </div>
+    </div>
+
+    <div class="body p-4">
+        <div class="row clearfix mb-4">
+            @if (Model.TopCategories != null && Model.TopCategories.Any())
+            {
+                foreach (var top in Model.TopCategories)
+                {
+                    bool isPositive = top.ChangePercentage >= 0;
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="p-3 border rounded bg-light">
+                            <small class="text-muted text-uppercase font-weight-bold d-block">@top.CategoryName</small>
+                            <div class="d-flex align-items-baseline mt-1">
+                                <h3 class="m-0 font-weight-bold text-dark mr-3">@top.TotalOrderCount.ToString("N0")</h3>
+                                <span class="font-weight-bold @(isPositive ? "text-success" : "text-danger") font-13">
+                                    <i class="zmdi @(isPositive ? "zmdi-trending-up" : "zmdi-trending-down") mr-1"></i>@(isPositive ? "+" : "")@top.ChangePercentage%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-muted text-center py-2">Henüz kategori sipariş verisi bulunmuyor.</div>
+            }
+        </div>
+
+        <div id="customerCategoryChart" style="height: 350px;"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var months = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Months));
+
+        var seriesData = [];
+        var categorySeries = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CategorySeries));
+
+        for (var catName in categorySeries) {
+            seriesData.push({
+                name: catName,
+                data: categorySeries[catName]
+            });
+        }
+
+        var options = {
+            series: seriesData,
+            chart: {
+                height: 350,
+                type: 'line',
+                dropShadow: {
+                    enabled: true,
+                    color: '#000',
+                    top: 18,
+                    left: 7,
+                    blur: 10,
+                    opacity: 0.2
+                },
+                toolbar: {
+                    show: true
+                }
+            },
+            colors: ['#705ecb', '#20c997', '#ffc107', '#dc3545', '#17a2b8', '#e83e8c', '#6610f2'],
+            dataLabels: {
+                enabled: false,
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 3
+            },
+            grid: {
+                borderColor: '#e7e7e7',
+                row: {
+                    colors: ['#f3f3f3', 'transparent'],
+                    opacity: 0.5
+                },
+            },
+            markers: {
+                size: 4
+            },
+            xaxis: {
+                categories: months,
+                title: {
+                    text: 'Aylar'
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Sipariş Adedi'
+                }
+            },
+            legend: {
+                position: 'bottom',
+                horizontalAlign: 'center',
+                floating: false,
+                offsetY: 5,
+                offsetX: 0
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#customerCategoryChart"), options);
+        chart.render();
+    });
+</script>

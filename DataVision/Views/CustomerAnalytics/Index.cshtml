@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Müşteri Analitiği ve Tahminleme";
+}
+
+<div class="block-header"></div>
+
+<div class="container-fluid mt-2">
+    @await Component.InvokeAsync("CustomerAnalyticsHeader")
+    @await Component.InvokeAsync("CustomerOverviewKpis")
+
+    <div class="row clearfix mt-3">
+        <div class="col-lg-12">
+            @await Component.InvokeAsync("CustomerCategoryTrends")
+        </div>
+    </div>
+
+    <div class="row clearfix mt-3">
+        <div class="col-lg-4 col-md-12 mb-4">
+            @await Component.InvokeAsync("CustomerCityDistribution")
+        </div>
+        <div class="col-lg-4 col-md-12 mb-4">
+            @await Component.InvokeAsync("CustomerTopVips")
+        </div>
+        <div class="col-lg-4 col-md-12 mb-4">
+            @await Component.InvokeAsync("CustomerPaymentPreferences")
+        </div>
+    </div>
+</div>

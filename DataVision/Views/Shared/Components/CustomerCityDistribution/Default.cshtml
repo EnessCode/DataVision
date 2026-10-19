@@ -1,0 +1,31 @@
+﻿@model List<CityDistributionViewModel>
+
+<div class="card shadow-sm border-0 rounded-lg h-100 mb-0">
+    <div class="header bg-light border-bottom p-3">
+        <h6 class="m-0 text-dark font-weight-bold">
+            <i class="zmdi zmdi-pin mr-2 text-warning"></i>En Aktif Şehirler
+        </h6>
+        <small class="text-muted">Sipariş hacmine göre ilk 5 şehir</small>
+    </div>
+    <div class="body p-3">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var city in Model)
+            {
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between font-13 mb-1">
+                        <span class="font-weight-bold text-dark">@city.CityName</span>
+                        <span class="text-muted">@city.OrderCount.ToString("N0") sipariş (%@city.Percentage)</span>
+                    </div>
+                    <div class="progress" style="height: 6px; border-radius: 3px;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: @city.Percentage.ToString(System.Globalization.CultureInfo.InvariantCulture)%;"></div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-muted text-center py-4">Veri bulunamadı.</p>
+        }
+    </div>
+</div>

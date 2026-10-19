@@ -1,0 +1,44 @@
+﻿@model List<TopVipCustomerViewModel>
+
+<div class="card shadow-sm border-0 rounded-lg h-100 mb-0">
+    <div class="header bg-light border-bottom p-3">
+        <h6 class="m-0 text-dark font-weight-bold">
+            <i class="zmdi zmdi-star mr-2 text-warning"></i>En Aktif VIP Müşteriler
+        </h6>
+        <small class="text-muted">En çok sipariş veren ilk 5 müşteri</small>
+    </div>
+    <div class="body p-3">
+        <div class="table-responsive">
+            <table class="table table-hover table-custom mb-0 font-13">
+                <thead>
+                    <tr>
+                        <th class="border-0 py-1">Müşteri</th>
+                        <th class="border-0 py-1 text-center">Sipariş</th>
+                        <th class="border-0 py-1 text-right">Son Sipariş</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="font-weight-bold text-dark text-truncate" style="max-width: 120px;">@item.CustomerName</td>
+                                <td class="text-center font-weight-bold text-primary">@item.TotalOrderCount</td>
+                                <td class="text-right text-muted font-12">
+                                    @(item.LastOrderDate.HasValue? item.LastOrderDate.Value.ToString("dd.MM.yyyy") : "-")
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center text-muted py-3">Müşteri verisi bulunamadı.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
