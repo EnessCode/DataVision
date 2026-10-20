@@ -1,0 +1,65 @@
+﻿@model CustomerDetailViewModel
+
+@{
+    ViewData["Title"] = $"{Model.Customer.CustomerName} {Model.Customer.CustomerSurname} - Müşteri Detayı";
+}
+
+<style>
+    .profile-banner {
+        background: linear-gradient(135deg, #e0e5ec 0%, #f5f7fa 100%);
+        border-radius: 8px 8px 0 0;
+        padding: 35px 40px;
+    }
+
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        object-fit: cover;
+    }
+
+    .profile-tabs .nav-link {
+        color: #666;
+        font-weight: 500;
+        padding: 18px 15px;
+        border: none;
+        border-right: 1px solid #eee;
+        border-radius: 0;
+        transition: all 0.2s;
+    }
+
+        .profile-tabs .nav-link.active {
+            background-color: #f9b115 !important;
+            color: #fff !important;
+            font-weight: 600;
+        }
+
+    .stat-box {
+        border-right: 1px solid #f0f0f0;
+        padding: 20px 10px;
+    }
+
+        .stat-box:last-child {
+            border-right: none;
+        }
+
+    .ai-analysis-content p {
+        margin-bottom: 8px;
+        color: #444;
+    }
+
+    .ai-analysis-content ul {
+        margin-bottom: 16px;
+        padding-left: 22px;
+    }
+</style>
+
+<div class="block-header"></div>
+
+<div class="container-fluid mt-2">
+    @await Component.InvokeAsync("CustomerDetailBanner", new { customer = Model.Customer })
+    @await Component.InvokeAsync("CustomerDetailStats", new { model = Model })
+    @await Component.InvokeAsync("CustomerDetailTabs", new { model = Model })
+</div>

@@ -1,0 +1,91 @@
+﻿@model CustomerDetailViewModel
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="tab-ai" role="tabpanel">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom py-3">
+                <h6 class="m-0 font-weight-bold text-dark">Yapay Zeka Müşteri Analizi</h6>
+            </div>
+            <div class="card-body p-4 ai-analysis-content">
+                @Html.Raw(Model.AiAnalysisHtml)
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="tab-orders" role="tabpanel">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom py-3">
+                <h6 class="m-0 font-weight-bold text-dark">Son Siparişler</h6>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Sipariş No</th>
+                            <th>Ürün</th>
+                            <th>Adet</th>
+                            <th>Tutar</th>
+                            <th>Ödeme</th>
+                            <th>Durum</th>
+                            <th>Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var o in Model.RecentOrders)
+                        {
+                            <tr>
+                                <td>#@o.OrderId</td>
+                                <td>@(o.Product?.ProductName ?? "-")</td>
+                                <td>@o.Quantity</td>
+                                <td>@(((o.Quantity ?? 1) * (o.Product?.UnitPrice ?? 0)).ToString("N2")) ₺</td>
+                                <td>@o.PaymentMethod</td>
+                                <td><span class="badge badge-info">@o.OrderStatus</span></td>
+                                <td>@(o.OrderDate?.ToString("dd.MM.yyyy HH:mm"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="tab-reviews" role="tabpanel">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom py-3">
+                <h6 class="m-0 font-weight-bold text-dark">Müşteri Değerlendirmeleri (@Model.Reviews.Count)</h6>
+            </div>
+            <div class="card-body">
+                @if (!Model.Reviews.Any())
+                {
+                    <p class="text-muted mb-0">Bu müşteriye ait değerlendirme bulunmamaktadır.</p>
+                }
+                @foreach (var r in Model.Reviews)
+                {
+                    <div class="border-bottom pb-3 mb-3">
+                        <div class="d-flex justify-content-between">
+                            <strong>@(r.Product?.ProductName ?? "Ürün")</strong>
+                            <span class="text-warning font-weight-bold">★ @r.Rating / 5 (@r.Sentiment)</span>
+                        </div>
+                        <p class="mb-1 mt-1">@r.ReviewText</p>
+                        <small class="text-muted">@r.ReviewDate.ToString("dd MMMM yyyy") - @r.PurchaseType</small>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="tab-profile" role="tabpanel">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom py-3">
+                <h6 class="m-0 font-weight-bold text-dark">Detaylı İletişim ve Adres Bilgileri</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Ad Soyad:</strong> @Model.Customer.CustomerName @Model.Customer.CustomerSurname</p>
+                <p><strong>E-Posta:</strong> @Model.Customer.CustomerEmail</p>
+                <p><strong>Telefon:</strong> @Model.Customer.CustomerPhone</p>
+                <p><strong>Ülke / Şehir / İlçe:</strong> @Model.Customer.CustomerCountry / @Model.Customer.CustomerCity / @Model.Customer.CustomerDistrict</p>
+                <p><strong>Açık Adres:</strong> @Model.Customer.CustomerAddress</p>
+            </div>
+        </div>
+    </div>
+</div>

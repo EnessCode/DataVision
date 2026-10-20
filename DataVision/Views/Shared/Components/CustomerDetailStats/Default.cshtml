@@ -1,0 +1,26 @@
+﻿@model CustomerDetailViewModel
+
+@{
+    var stats = new[]
+    {
+        new { Icon = "zmdi-camera text-warning", Value = Model.TotalOrders.ToString(), Label = "Sipariş Sayısı" },
+        new { Icon = "zmdi-thumb-up text-primary", Value = Model.CompletedOrders.ToString(), Label = "Tamamlanan Siparişler" },
+        new { Icon = "zmdi-comment-alert text-danger", Value = Model.CancelledOrders.ToString(), Label = "İptal Edilen Siparişler" },
+        new { Icon = "zmdi-account text-success", Value = Model.Customer.CustomerCountry, Label = "Müşteri Ülke" },
+        new { Icon = "zmdi-desktop-mac text-info", Value = Model.Customer.CustomerCity, Label = "Müşteri Şehir" },
+        new { Icon = "zmdi-money text-warning", Value = $"{Model.TotalSpent:N0} ₺", Label = "Toplam Harcanan Tutar" }
+    };
+}
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="row text-center m-0">
+        @foreach (var s in stats)
+        {
+            <div class="col-md-2 col-6 stat-box">
+                <i class="zmdi @s.Icon font-22 d-block mb-2"></i>
+                <h4 class="font-weight-bold mb-0">@s.Value</h4>
+                <small class="text-muted">@s.Label</small>
+            </div>
+        }
+    </div>
+</div>

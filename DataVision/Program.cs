@@ -1,9 +1,13 @@
 using DataVision.Context;
+using DataVision.Services.CustomerAiService;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMemoryCache();
+
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<ICustomerAiService, CustomerAiService>();
 
 builder.Services.AddDbContext<DataVisionContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

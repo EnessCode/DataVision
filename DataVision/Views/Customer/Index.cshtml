@@ -47,7 +47,9 @@
                                                         <i class="zmdi zmdi-account"></i>
                                                     </div>
                                                     <div>
-                                                        @item.CustomerName @item.CustomerSurname
+                                                        <a href="/Customer/Detail/@item.CustomerId" class="text-dark">
+                                                            @item.CustomerName @item.CustomerSurname
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -60,6 +62,9 @@
                                                 <div class="text-muted font-12">@item.CustomerCountry</div>
                                             </td>
                                             <td class="text-right" style="padding-right: 2rem;">
+                                                <a href="/Customer/Detail/@item.CustomerId" class="btn btn-sm btn-outline-info btn-icon btn-icon-mini btn-round mr-2" title="Detay & AI Analizi">
+                                                    <i class="zmdi zmdi-eye"></i>
+                                                </a>
                                                 <a href="/Customer/Edit/@item.CustomerId" class="btn btn-sm btn-outline-warning btn-icon btn-icon-mini btn-round mr-2" title="Düzenle">
                                                     <i class="zmdi zmdi-edit"></i>
                                                 </a>

@@ -1,0 +1,109 @@
+﻿@model Customer
+
+@{
+    string firstInitial = !string.IsNullOrEmpty(Model.CustomerName) ? Model.CustomerName.Substring(0, 1).ToUpper() : "";
+    string lastInitial = !string.IsNullOrEmpty(Model.CustomerSurname) ? Model.CustomerSurname.Substring(0, 1).ToUpper() : "";
+    string initials = $"{firstInitial}{lastInitial}";
+
+    bool hasValidUrl = !string.IsNullOrWhiteSpace(Model.CustomerImageUrl)
+                       && (Model.CustomerImageUrl.StartsWith("http://") || Model.CustomerImageUrl.StartsWith("https://") || Model.CustomerImageUrl.StartsWith("/"));
+}
+
+<style>
+    .profile-tabs {
+        border-bottom: none !important;
+    }
+
+        .profile-tabs .nav-item {
+            margin-bottom: 0 !important;
+        }
+
+        .profile-tabs .nav-link {
+            color: #666 !important;
+            font-weight: 500;
+            padding: 18px 15px !important;
+            border: none !important;
+            border-right: 1px solid #eee !important;
+            border-radius: 0 !important;
+            background-color: #fff !important;
+            transition: all 0.2s ease-in-out;
+        }
+
+            .profile-tabs .nav-link i {
+                color: #777 !important;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .profile-tabs .nav-link:hover {
+                background-color: #fff8eb !important;
+                color: #f9b115 !important;
+            }
+
+                .profile-tabs .nav-link:hover i {
+                    color: #f9b115 !important;
+                }
+
+            .profile-tabs .nav-link.active,
+            .profile-tabs .nav-link.active:hover,
+            .profile-tabs .nav-link.active:focus {
+                background-color: #f9b115 !important;
+                color: #ffffff !important;
+                font-weight: 600;
+            }
+
+                .profile-tabs .nav-link.active i,
+                .profile-tabs .nav-link.active:hover i,
+                .profile-tabs .nav-link.active:focus i {
+                    color: #ffffff !important;
+                }
+</style>
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="profile-banner d-flex align-items-center">
+        <div class="mr-4 position-relative">
+            @if (hasValidUrl)
+            {
+                <img src="@Model.CustomerImageUrl"
+                     alt="@initials"
+                     class="profile-avatar"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            }
+            <div class="profile-avatar align-items-center justify-content-center font-weight-bold text-white"
+                 style="display: @(hasValidUrl ? "none" : "flex"); background: linear-gradient(135deg, #4e73df 0%, #224abe 100%); font-size: 2.4rem; letter-spacing: 1px;">
+                @initials
+            </div>
+        </div>
+
+        <div>
+            <h3 class="font-weight-bold text-dark mb-1">@Model.CustomerName @Model.CustomerSurname</h3>
+            <p class="text-muted mb-2">@Model.CustomerEmail</p>
+            <p class="text-secondary mb-0" style="max-width: 650px;">
+                Alışveriş yapmayı seven, fırsatları kaçırmayan bir müşterimiz. Kaliteli ürünlere ve hızlı teslimata önem verir.
+                (@Model.CustomerDistrict / @Model.CustomerCity)
+            </p>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs nav-justified profile-tabs bg-white" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tab-orders" role="tab">
+                <i class="zmdi zmdi-email d-block mb-1 font-18"></i> Siparişler
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tab-reviews" role="tab">
+                <i class="zmdi zmdi-camera d-block mb-1 font-18"></i> Değerlendirmeler
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#tab-ai" role="tab">
+                <i class="zmdi zmdi-attachment-alt d-block mb-1 font-18"></i> AI Analizi
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tab-profile" role="tab">
+                <i class="zmdi zmdi-assignment d-block mb-1 font-18"></i> Profil Bilgisi
+            </a>
+        </li>
+    </ul>
+</div>
