@@ -12,5 +12,6 @@
 		public string CustomerCity { get; set; }
 		public string CustomerDistrict { get; set; }
 		public string CustomerAddress { get; set; }
+		public List<Message> Messages { get; set; }
 	}
 }
